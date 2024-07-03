@@ -1,0 +1,36 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "environmentName": {
+            "value": "data2chat001"
+        },
+        "location": {
+            "value": "westeurope"
+        },
+        "usePrivateNetwork": {
+            "value": true
+        },
+        "vnetRgName": {
+            "value": "ISWEACEPRD01-RG-01"
+        },
+        "vnetName": {
+            "value": "WE-ACE-PRD-Z1A-VNET42"
+        },
+        "vnetPrivateEndpointSubnet": {
+            "value": "private-endpoint-subnet"
+        },
+        "vnetAppServiceSubnet": {
+            "value": "web-app-subnet"
+        },
+        "allowPublicAccessToFrontend": {
+            "value": false
+        },
+        "allowPublicAccessToAdmin": {
+            "value": false
+        },
+        "dnsOverride": {
+            "value": "168.63.129.16"
+        }
+    }
+}
