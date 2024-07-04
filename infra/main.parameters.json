@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "environmentName": {
-            "value": "data2chat001"
+            "value": "data2chat002"
         },
         "location": {
             "value": "westeurope"
@@ -12,10 +12,10 @@
             "value": true
         },
         "vnetRgName": {
-            "value": "ISWEACEPRD01-RG-01"
+            "value": "ISWEACEDEV01-RG-01"
         },
         "vnetName": {
-            "value": "WE-ACE-PRD-Z1A-VNET42"
+            "value": "WE-ACE-DEV-Z1A-VNET33"
         },
         "vnetPrivateEndpointSubnet": {
             "value": "private-endpoint-subnet"

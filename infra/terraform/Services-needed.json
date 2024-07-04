@@ -1,0 +1,41 @@
+NAME					                    TYPE					        LOCATION					REUSE
+appinsights-ued5lcgg5trfm					Application Insights			West Europe					
+Application Insights Smart Detection		Action group					Global					    reuse
+backend-ued5lcgg5trfm-docker				Function App					West Europe					
+backend-ued5lcgg5trfm-docker-conn			Private endpoint				West Europe					
+backend-ued5lcgg5trfm-docker-conn-nic		Network Interface				West Europe					
+contentsafety-ued5lcgg5trfm					Content safety					West Europe					
+contentsafety-ued5lcgg5trfm-conn			Private endpoint				West Europe					
+contentsafety-ued5lcgg5trfm-conn-nic		Network Interface				West Europe					
+dash-appinsights-ued5lcgg5trfm				Shared dashboard				West Europe					reuse
+doc-processing					            Event Grid System Topic		    West Europe					
+formrecog-ued5lcgg5trfm					    Document intelligence			West Europe					
+formrecog-ued5lcgg5trfm-conn				Private endpoint				West Europe					
+formrecog-ued5lcgg5trfm-conn-nic			Network Interface				West Europe					
+hosting-plan-ued5lcgg5trfm					App Service plan				West Europe					
+kv-ued5lcgg5trfm					        Key vault					    West Europe					
+kv-ued5lcgg5trfm-conn					    Private endpoint				West Europe					
+kv-ued5lcgg5trfm-conn-nic					Network Interface				West Europe					
+la-ued5lcgg5trfm					        Log Analytics workspace			West Europe					reuse
+openai-ued5lcgg5trfm					    Azure OpenAI					Sweden Central					
+openai-ued5lcgg5trfm-conn					Private endpoint				West Europe					reuse
+openai-ued5lcgg5trfm-conn-nic				Network Interface				West Europe					reuse
+privatelink.azurewebsites.net				Private DNS zone				Global					
+privatelink.blob.core.windows.net			Private DNS zone				Global					
+privatelink.cognitiveservices.azure.com		Private DNS zone				Global					
+privatelink.openai.azure.com				Private DNS zone				Global					
+privatelink.queue.core.windows.net			Private DNS zone				Global					
+privatelink.search.windows.net				Private DNS zone				Global					
+privatelink.vaultcore.azure.net				Private DNS zone				Global					
+search-ued5lcgg5trfm					    Search service					West Europe					
+search-ued5lcgg5trfm-conn					Private endpoint				West Europe					
+search-ued5lcgg5trfm-conn-nic				Network Interface				West Europe					
+speech-ued5lcgg5trfm-conn					Private endpoint				West Europe					
+speech-ued5lcgg5trfm-conn-nic				Network Interface				West Europe					
+strued5lcgg5trfm					        Storage account					West Europe					
+strued5lcgg5trfm-blob-conn					Private endpoint				West Europe					
+strued5lcgg5trfm-blob-conn-nic				Network Interface				West Europe					
+strued5lcgg5trfm-queue-conn					Private endpoint				West Europe					
+strued5lcgg5trfm-queue-conn-nic				Network Interface				West Europe					
+web-ued5lcgg5trfm-admin-docker				App Service					    West Europe					
+web-ued5lcgg5trfm-docker					App Service					    West Europe					
