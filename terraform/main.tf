@@ -28,7 +28,7 @@ provider "namep" {
   }
 
   custom_resource_formats = {
-    azurerm_logic_app_standard = "las-#{TOKEN_1}-#{TOKEN_2}-#{SHORT_LOC}-#{NAME}#{-salt}-#{RND}"
+    azurerm_logic_app_standard = "las-#{TOKEN_1}-#{TOKEN_2}-#{SHORT_LOC}-#{NAME}#{-SALT}-#{RND}"
   }
 
   extra_tokens = {
