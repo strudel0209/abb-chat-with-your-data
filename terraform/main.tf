@@ -1,5 +1,6 @@
 terraform {
-  backend "azurerm" {}
+  backend "local" {
+  }
 }
 
 provider "azurerm" {
@@ -16,14 +17,22 @@ provider "azurerm" {
 
 data "azurerm_client_config" "current" {}
 
-
 provider "namep" {
-  slice_string                 = "ABBCHAT MVP"
+  slice_string                 = "abbchat mvp"
   default_location             = var.location
   default_nodash_name_format   = "#{SLUG}#{TOKEN_1}#{TOKEN_2}#{SHORT_LOC}#{NAME}#{SALT}"
   default_resource_name_format = "#{SLUG}-#{TOKEN_1}-#{TOKEN_2}-#{SHORT_LOC}-#{NAME}#{-SALT}"
 
+  azure_resource_formats = {
+    azurerm_storage_account = "sta#{TOKEN_1}#{NAME}#{SALT}#{RND}"
+  }
+
+  custom_resource_formats = {
+    azurerm_logic_app_standard = "las-#{TOKEN_1}-#{TOKEN_2}-#{SHORT_LOC}-#{NAME}#{-salt}-#{RND}"
+  }
+
   extra_tokens = {
     salt = var.salt
+    rnd = "NOT SET"
   }
 }
