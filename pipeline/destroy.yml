@@ -1,0 +1,34 @@
+trigger: none
+
+parameters:
+  - name: salt
+    default: 'tst'
+  - name: useWorkspace
+    default: true
+    type: boolean
+
+variables:
+  - template: variables.yml
+  - name: saltVar
+    ${{ if eq(parameters.salt, '-' ) }}:
+      value: ''
+    ${{ else }}:
+      value: ${{ parameters.salt }}
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+  - template: terraform.yml
+    parameters:
+      terraformVersion: $(terraformVersion)
+      terraformPath: $(terraformPath)
+      servicePrinciple: $(servicePrinciple)
+      containerName: $(terraformContainerName)
+      storageAccountName: $(terraformStorageAccountName)
+      workspace: ${{ parameters.salt }}
+      useWorkspace: ${{ parameters.useWorkspace }}
+      resourceGroupName: $(terraformResourceGroupName)
+      action: destroy
+      env:
+        TF_VAR_branch: $(saltVar)
