@@ -15,7 +15,7 @@ resource "azurerm_service_plan" "main" {
 data "namep_azure_name" "fa" {
   name     = "mvp"
   location = var.location
-  type     = "azurerm_linux_function_app"
+  type     = "azurerm_function_app"
 }
 
 resource "azurerm_linux_function_app" "main" {
@@ -33,7 +33,7 @@ resource "azurerm_linux_function_app" "main" {
 data "namep_azure_name" "wa_admin" {
   name     = "admin"
   location = var.location
-  type     = "azurerm_linux_web_app"
+  type     = "azurerm_app_service"
 }
 
 resource "azurerm_linux_web_app" "admin" {
@@ -48,10 +48,10 @@ resource "azurerm_linux_web_app" "admin" {
 data "namep_azure_name" "wa_docker" {
   name     = "docker"
   location = var.location
-  type     = "azurerm_linux_web_app"
+  type     = "azurerm_app_service"
 }
 
-resource "azurerm_linux_web_app" "admin" {
+resource "azurerm_linux_web_app" "docker" {
   name                = data.namep_azure_name.wa_docker.result
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_service_plan.main.location
