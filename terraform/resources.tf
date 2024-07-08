@@ -10,7 +10,7 @@ resource "azurerm_resource_group" "main" {
 }
 
 resource "random_id" "storage_account" {
-  byte_length = 8
+  byte_length = 4
 }
 
 data "namep_azure_name" "sa" {
