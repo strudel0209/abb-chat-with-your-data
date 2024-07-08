@@ -28,6 +28,21 @@ resource "azurerm_cognitive_account" "openai" {
   sku_name = "S0"
 }
 
+data "namep_azure_name" "content_safety" {
+  name     = "safe"
+  location = var.location
+  type     = "azurerm_cognitive_account"
+}
+
+resource "azurerm_cognitive_account" "content_safety" {
+  name                = data.namep_azure_name.content_safety.result
+  location            = "swedencentral"
+  resource_group_name = azurerm_resource_group.main.name
+  kind                = "ContentSafety"
+
+  sku_name = "S0"
+}
+
 data "namep_azure_name" "search" {
   name     = "mvp"
   location = var.location
