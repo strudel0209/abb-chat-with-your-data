@@ -13,7 +13,7 @@ formrecog-ued5lcgg5trfm					    Document intelligence			West Europe
 formrecog-ued5lcgg5trfm-conn				Private endpoint				West Europe					
 formrecog-ued5lcgg5trfm-conn-nic			Network Interface				West Europe					
 hosting-plan-ued5lcgg5trfm					App Service plan				West Europe			                                                                    X		
-kv-ued5lcgg5trfm					        Key vault					    West Europe					
+kv-ued5lcgg5trfm					        Key vault					    West Europe		                                                                        X			
 kv-ued5lcgg5trfm-conn					    Private endpoint				West Europe					
 kv-ued5lcgg5trfm-conn-nic					Network Interface				West Europe					
 la-ued5lcgg5trfm					        Log Analytics workspace			West Europe					reuse                                                       X
