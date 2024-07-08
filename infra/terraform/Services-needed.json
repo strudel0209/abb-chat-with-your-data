@@ -4,7 +4,7 @@ Application Insights Smart Detection		Action group					Global					    reuse     
 backend-ued5lcgg5trfm-docker				Function App					West Europe					                                                            X
 backend-ued5lcgg5trfm-docker-conn			Private endpoint				West Europe					
 backend-ued5lcgg5trfm-docker-conn-nic		Network Interface				West Europe					
-contentsafety-ued5lcgg5trfm					Content safety					West Europe					                What is this?
+contentsafety-ued5lcgg5trfm					Content safety					West Europe					                                                            X       
 contentsafety-ued5lcgg5trfm-conn			Private endpoint				West Europe					
 contentsafety-ued5lcgg5trfm-conn-nic		Network Interface				West Europe					
 dash-appinsights-ued5lcgg5trfm				Shared dashboard				West Europe					reuse
