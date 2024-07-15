@@ -80,6 +80,7 @@ locals {
   }
 
   function_app_settings = {
-    "DOCUMENT_PROCESSING_QUEUE_NAME" = "doc-processing" #TODO: THIS SHOULD BE A RESOURCE!
+    "DOCUMENT_PROCESSING_QUEUE_NAME" = azurerm_storage_queue.main.name
+    "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false"
   }
 }

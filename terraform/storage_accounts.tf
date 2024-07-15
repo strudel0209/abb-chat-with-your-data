@@ -33,8 +33,31 @@ resource "azurerm_storage_container" "config" {
   container_access_type = "private"
 }
 
+resource "azurerm_storage_queue" "main" {
+  name                 = "doc-processing"
+  storage_account_name = azurerm_storage_account.main.name
+}
+
 resource "azurerm_role_assignment" "sa_admin_blob_contrib" {
   scope                = azurerm_storage_account.main.id
   role_definition_name = "Storage Blob Data Contributor"
   principal_id         = azurerm_linux_web_app.admin.identity[0].principal_id
+}
+
+resource "azurerm_role_assignment" "sa_fa_blob_contrib" {
+  scope                = azurerm_storage_account.main.id
+  role_definition_name = "Storage Blob Data Contributor"
+  principal_id         = azurerm_linux_function_app.main.identity[0].principal_id
+}
+
+resource "azurerm_role_assignment" "sa_fa_queue_contrib" {
+  scope                = azurerm_storage_account.main.id
+  role_definition_name = "Storage Queue Data Contributor"
+  principal_id         = azurerm_linux_function_app.main.identity[0].principal_id
+}
+
+resource "azurerm_role_assignment" "sa_form_recognizer_read" {
+  scope                = azurerm_storage_account.main.id
+  role_definition_name = "Storage Blob Data Reader"
+  principal_id         = azurerm_cognitive_account.di.identity[0].principal_id
 }

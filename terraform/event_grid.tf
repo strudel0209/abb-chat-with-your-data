@@ -6,11 +6,6 @@ resource "azurerm_eventgrid_system_topic" "main" {
   topic_type             = "Microsoft.Storage.StorageAccounts"
 }
 
-resource "azurerm_storage_queue" "main" {
-  name                 = "doc-processing"
-  storage_account_name = azurerm_storage_account.main.name
-}
-
 resource "azurerm_eventgrid_system_topic_event_subscription" "main" {
   name                = "BlobEvents"
   system_topic        = azurerm_eventgrid_system_topic.main.name
