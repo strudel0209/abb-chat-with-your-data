@@ -33,14 +33,13 @@ resource "azurerm_linux_function_app" "main" {
   site_config {
     application_stack {
       docker {
-        registry_url = azurerm_container_registry.main.login_server
+        registry_url = "https://fruoccopublic.azurecr.io"
         image_name   = "rag-backend"
         image_tag    = "latest"
       }
     }
     application_insights_connection_string = azurerm_application_insights.main.connection_string
     application_insights_key = azurerm_application_insights.main.instrumentation_key
-    container_registry_use_managed_identity  = true
   }
 
   identity {
