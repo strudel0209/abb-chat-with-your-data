@@ -1,3 +1,4 @@
+import logging
 from azure.core.credentials import AzureKeyCredential
 from azure.ai.formrecognizer import DocumentAnalysisClient
 from azure.identity import DefaultAzureCredential
@@ -73,6 +74,12 @@ class AzureFormRecognizerClient:
         offset = 0
         page_map = []
         model_id = "prebuilt-layout" if use_layout else "prebuilt-read"
+
+        log = logging.getLogger("azure").getChild("AzureFormRecognizerClient").getChild(
+            "begin_analyze_document_from_url"
+        )
+
+        log.info(f"source_url: {source_url}, use_layout: {use_layout}, paragraph_separator: {paragraph_separator}")
 
         try:
             poller = self.document_analysis_client.begin_analyze_document_from_url(
