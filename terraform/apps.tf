@@ -33,13 +33,14 @@ resource "azurerm_linux_function_app" "main" {
   site_config {
     application_stack {
       docker {
-        registry_url = "https://fruoccopublic.azurecr.io"
+        registry_url = azurerm_container_registry.main.login_server
         image_name   = "rag-backend"
         image_tag    = "latest"
       }
     }
     application_insights_connection_string = azurerm_application_insights.main.connection_string
     application_insights_key = azurerm_application_insights.main.instrumentation_key
+    container_registry_use_managed_identity  = true
   }
 
   identity {
@@ -49,6 +50,11 @@ resource "azurerm_linux_function_app" "main" {
   app_settings = merge(local.common_app_settings, local.function_app_settings)
 
   tags = local.app_insights_tags
+}
+
+data "azurerm_function_app_host_keys" "main" {
+  name                = azurerm_linux_function_app.main.name
+  resource_group_name = azurerm_resource_group.main.name
 }
 
 data "namep_azure_name" "wa_admin" {
@@ -77,7 +83,7 @@ resource "azurerm_linux_web_app" "admin" {
     type = "SystemAssigned"
   }
 
-  app_settings = merge(local.common_app_settings, local.app_insights_app_settings, local.web_app_extra_settings, local.function_app_settings)
+  app_settings = merge(local.common_app_settings, local.app_insights_app_settings, local.web_app_extra_settings, local.admin_app_settings, local.function_app_settings)
 
   tags = local.app_insights_tags
 }
