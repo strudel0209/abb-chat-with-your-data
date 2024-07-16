@@ -25,7 +25,8 @@ locals {
     "AZURE_FORM_RECOGNIZER_ENDPOINT" = azurerm_cognitive_account.di.endpoint
     "AZURE_OPENAI_MODEL"             = "gpt-4"
     "AZURE_OPENAI_EMBEDDING_MODEL"   = "text-embedding-ada-002"
-    "AZURE_OPENAI_RESOURCE"          = azurerm_cognitive_account.openai.name
+#    "AZURE_OPENAI_RESOURCE"          = azurerm_cognitive_account.openai.name      # I think this is the wrong thing to use for our use case
+    "AZURE_OPENAI_ENDPOINT"          = azurerm_cognitive_account.openai.endpoint
     "AZURE_OPENAI_API_VERSION"       = "2024-02-01"
     "AZURE_SEARCH_SERVICE"           = "https://${azurerm_search_service.main.name}.search.windows.net"
     "AZURE_SEARCH_INDEX"             = "index-${random_id.storage_account.hex}"
@@ -71,6 +72,11 @@ locals {
     #    "AZURE_SPEECH_SERVICE_NAME"            = "NOT USED"
     #    "AZURE_SPEECH_SERVICE_REGION"          = "NOT USED"
     #    "SPEECH_RECOGNIZER_LANGUAGES"          = "NOT USED"
+  }
+
+  admin_app_settings = {
+    "BACKEND_URL" = "https://${azurerm_linux_function_app.main.default_hostname}"
+    "FUNCTION_KEY" = data.azurerm_function_app_host_keys.main.primary_key
   }
 
   app_insights_tags = {

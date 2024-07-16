@@ -129,3 +129,9 @@ resource "azurerm_role_assignment" "search_service_contrib_fa" {
   role_definition_name = "Cognitive Services Contributor"
   principal_id         = azurerm_linux_function_app.main.identity[0].principal_id
 }
+
+resource "azurerm_role_assignment" "search_service_contrib_admin" {
+  scope                = azurerm_resource_group.main.id
+  role_definition_name = "Cognitive Services Contributor"
+  principal_id         = azurerm_linux_web_app.admin.identity[0].principal_id
+}
