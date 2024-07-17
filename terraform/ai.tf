@@ -9,6 +9,7 @@ resource "azurerm_cognitive_account" "di" {
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
   kind                = "FormRecognizer"
+  custom_subdomain_name = data.namep_azure_name.di.result
 
   sku_name = "S0"
 
@@ -37,27 +38,14 @@ resource "azurerm_cognitive_account" "openai" {
   }
 }
 
-resource "azurerm_cognitive_deployment" "text" {
-  name                 = "deploy-text"
+resource "azurerm_cognitive_deployment" "main" {
+  for_each = {for model in var.openai_embedding_models : model.name => model}
+  name                 = each.key
   cognitive_account_id = azurerm_cognitive_account.openai.id
   model {
     format  = "OpenAI"
-    name    = "text-embedding-ada-002"
-    version = "2"
-  }
-
-  scale {
-    type = "Standard"
-  }
-}
-
-resource "azurerm_cognitive_deployment" "gpt" {
-  name                 = "deploy-gpt"
-  cognitive_account_id = azurerm_cognitive_account.openai.id
-  model {
-    format  = "OpenAI"
-    name    = "gpt-4"
-    version = "turbo-2024-04-09"
+    name    = each.key
+    version = each.value.version
   }
 
   scale {
