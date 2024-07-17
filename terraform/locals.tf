@@ -23,8 +23,8 @@ locals {
     "AZURE_BLOB_CONTAINER_NAME"      = azurerm_storage_container.documents.name
     "AZURE_CONTENT_SAFETY_ENDPOINT"  = azurerm_cognitive_account.content_safety.endpoint
     "AZURE_FORM_RECOGNIZER_ENDPOINT" = azurerm_cognitive_account.di.endpoint
-    "AZURE_OPENAI_MODEL"             = azurerm_cognitive_deployment.gpt.model[0].name
-    "AZURE_OPENAI_EMBEDDING_MODEL"   = azurerm_cognitive_deployment.text.model[0].name
+    "AZURE_OPENAI_MODEL"             = azurerm_cognitive_deployment.main["gpt-4"].name
+    "AZURE_OPENAI_EMBEDDING_MODEL"   = azurerm_cognitive_deployment.main["text-embedding-ada-002"].name
     "AZURE_OPENAI_RESOURCE"          = azurerm_cognitive_account.openai.name
     "AZURE_OPENAI_API_VERSION"       = "2024-02-01"
     "AZURE_SEARCH_SERVICE"           = "https://${azurerm_search_service.main.name}.search.windows.net"
