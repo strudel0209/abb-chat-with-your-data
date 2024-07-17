@@ -50,6 +50,7 @@ resource "azurerm_cognitive_deployment" "main" {
 
   scale {
     type = "Standard"
+    capacity = each.value.capacity
   }
 }
 
