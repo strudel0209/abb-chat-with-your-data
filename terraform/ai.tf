@@ -24,15 +24,44 @@ data "namep_azure_name" "oai" {
 }
 
 resource "azurerm_cognitive_account" "openai" {
-  name                = data.namep_azure_name.oai.result
-  location            = "swedencentral"
-  resource_group_name = azurerm_resource_group.main.name
-  kind                = "OpenAI"
+  name                  = data.namep_azure_name.oai.result
+  location              = "swedencentral"
+  resource_group_name   = azurerm_resource_group.main.name
+  kind                  = "OpenAI"
+  custom_subdomain_name = data.namep_azure_name.oai.result
 
   sku_name = "S0"
 
   identity {
     type = "SystemAssigned"
+  }
+}
+
+resource "azurerm_cognitive_deployment" "text" {
+  name                 = "deploy-text"
+  cognitive_account_id = azurerm_cognitive_account.openai.id
+  model {
+    format  = "OpenAI"
+    name    = "text-embedding-ada-002"
+    version = "2"
+  }
+
+  scale {
+    type = "Standard"
+  }
+}
+
+resource "azurerm_cognitive_deployment" "gpt" {
+  name                 = "deploy-gpt"
+  cognitive_account_id = azurerm_cognitive_account.openai.id
+  model {
+    format  = "OpenAI"
+    name    = "gpt-4"
+    version = "turbo-2024-04-09"
+  }
+
+  scale {
+    type = "Standard"
   }
 }
 
@@ -134,4 +163,16 @@ resource "azurerm_role_assignment" "search_service_contrib_admin" {
   scope                = azurerm_resource_group.main.id
   role_definition_name = "Cognitive Services Contributor"
   principal_id         = azurerm_linux_web_app.admin.identity[0].principal_id
+}
+
+resource "azurerm_role_assignment" "search_service_openai_contrib_admin" {
+  scope                = azurerm_resource_group.main.id
+  role_definition_name = "Cognitive Services OpenAI Contributor"
+  principal_id         = azurerm_linux_web_app.admin.identity[0].principal_id
+}
+
+resource "azurerm_role_assignment" "search_service_openai_contrib_fa" {
+  scope                = azurerm_resource_group.main.id
+  role_definition_name = "Cognitive Services OpenAI Contributor"
+  principal_id         = azurerm_linux_function_app.main.identity[0].principal_id
 }
