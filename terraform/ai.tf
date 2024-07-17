@@ -112,12 +112,6 @@ resource "azurerm_role_assignment" "si_user" {
   principal_id         = data.azurerm_client_config.current.object_id
 }
 
-resource "azurerm_role_assignment" "cognative_services_user" {
-  scope                = azurerm_resource_group.main.id
-  role_definition_name = "Cognitive Services User"
-  principal_id         = data.azurerm_client_config.current.object_id
-}
-
 resource "azurerm_role_assignment" "search_service_contrib_openai" {
   scope                = azurerm_search_service.main.id
   role_definition_name = "Search Service Contributor"
@@ -134,6 +128,12 @@ resource "azurerm_role_assignment" "search_service_contrib_admin" {
   scope                = azurerm_search_service.main.id
   role_definition_name = "Search Service Contributor"
   principal_id         = azurerm_linux_web_app.admin.identity[0].principal_id
+}
+
+resource "azurerm_role_assignment" "cognative_services_user" {
+  scope                = azurerm_resource_group.main.id
+  role_definition_name = "Cognitive Services User"
+  principal_id         = data.azurerm_client_config.current.object_id
 }
 
 resource "azurerm_role_assignment" "cognative_services_user_admin" {
