@@ -123,6 +123,18 @@ resource "azurerm_role_assignment" "search_service_contrib_openai" {
   principal_id         = azurerm_cognitive_account.openai.identity[0].principal_id
 }
 
+resource "azurerm_role_assignment" "search_service_contrib_fa" {
+  scope                = azurerm_search_service.main.id
+  role_definition_name = "Search Service Contributor"
+  principal_id         = azurerm_linux_function_app.main.identity[0].principal_id
+}
+
+resource "azurerm_role_assignment" "search_service_contrib_admin" {
+  scope                = azurerm_search_service.main.id
+  role_definition_name = "Search Service Contributor"
+  principal_id         = azurerm_linux_web_app.admin.identity[0].principal_id
+}
+
 resource "azurerm_role_assignment" "cognative_services_user_admin" {
   scope                = azurerm_resource_group.main.id
   role_definition_name = "Cognitive Services User"
@@ -141,25 +153,25 @@ resource "azurerm_role_assignment" "cognative_services_user_webapp" {
   principal_id         = azurerm_linux_web_app.docker.identity[0].principal_id
 }
 
-resource "azurerm_role_assignment" "search_service_contrib_fa" {
+resource "azurerm_role_assignment" "cognitive_service_contrib_fa" {
   scope                = azurerm_resource_group.main.id
   role_definition_name = "Cognitive Services Contributor"
   principal_id         = azurerm_linux_function_app.main.identity[0].principal_id
 }
 
-resource "azurerm_role_assignment" "search_service_contrib_admin" {
+resource "azurerm_role_assignment" "cognitive_service_contrib_admin" {
   scope                = azurerm_resource_group.main.id
   role_definition_name = "Cognitive Services Contributor"
   principal_id         = azurerm_linux_web_app.admin.identity[0].principal_id
 }
 
-resource "azurerm_role_assignment" "search_service_openai_contrib_admin" {
+resource "azurerm_role_assignment" "cognitive_service_openai_contrib_admin" {
   scope                = azurerm_resource_group.main.id
   role_definition_name = "Cognitive Services OpenAI Contributor"
   principal_id         = azurerm_linux_web_app.admin.identity[0].principal_id
 }
 
-resource "azurerm_role_assignment" "search_service_openai_contrib_fa" {
+resource "azurerm_role_assignment" "cognitive_service_openai_contrib_fa" {
   scope                = azurerm_resource_group.main.id
   role_definition_name = "Cognitive Services OpenAI Contributor"
   principal_id         = azurerm_linux_function_app.main.identity[0].principal_id
