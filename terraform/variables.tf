@@ -22,16 +22,15 @@ variable "openai_embedding_models" {
   default = [{
     name    = "text-embedding-ada-002"
     version = "2"
-    capacity = "200"
+    capacity = 200
     }, {
     name    = "gpt-4"
     version = "turbo-2024-04-09"
-    capacity = "1"
   }]
   type = list(object({
     name    = string
-    version = string
-    capacity   = string
+    version = optional(string, "1")
+    capacity   = optional(number, 1)
   }))
 
 }
