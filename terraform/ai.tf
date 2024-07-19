@@ -5,10 +5,10 @@ data "namep_azure_name" "di" {
 }
 
 resource "azurerm_cognitive_account" "di" {
-  name                = data.namep_azure_name.di.result
-  location            = azurerm_resource_group.main.location
-  resource_group_name = azurerm_resource_group.main.name
-  kind                = "FormRecognizer"
+  name                  = data.namep_azure_name.di.result
+  location              = azurerm_resource_group.main.location
+  resource_group_name   = azurerm_resource_group.main.name
+  kind                  = "FormRecognizer"
   custom_subdomain_name = data.namep_azure_name.di.result
 
   sku_name = "S0"
@@ -39,7 +39,7 @@ resource "azurerm_cognitive_account" "openai" {
 }
 
 resource "azurerm_cognitive_deployment" "main" {
-  for_each = {for model in var.openai_embedding_models : model.name => model}
+  for_each             = { for model in var.openai_embedding_models : model.name => model }
   name                 = each.key
   cognitive_account_id = azurerm_cognitive_account.openai.id
   model {
@@ -49,7 +49,7 @@ resource "azurerm_cognitive_deployment" "main" {
   }
 
   scale {
-    type = "Standard"
+    type     = "Standard"
     capacity = each.value.capacity
   }
 }

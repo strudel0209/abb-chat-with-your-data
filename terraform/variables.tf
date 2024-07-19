@@ -20,17 +20,17 @@ variable "secrets" {
 variable "openai_embedding_models" {
   description = "list of embedding models to deploy"
   default = [{
-    name    = "text-embedding-ada-002"
-    version = "2"
+    name     = "text-embedding-ada-002"
+    version  = "2"
     capacity = 200
     }, {
     name    = "gpt-4"
     version = "turbo-2024-04-09"
   }]
   type = list(object({
-    name    = string
-    version = optional(string, "1")
-    capacity   = optional(number, 1)
+    name     = string
+    version  = optional(string, "1")
+    capacity = optional(number, 1)
   }))
 
 }

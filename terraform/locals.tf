@@ -74,7 +74,7 @@ locals {
   }
 
   admin_app_settings = {
-    "BACKEND_URL" = "https://${azurerm_linux_function_app.main.default_hostname}"
+    "BACKEND_URL"  = "https://${azurerm_linux_function_app.main.default_hostname}"
     "FUNCTION_KEY" = data.azurerm_function_app_host_keys.main.primary_key
   }
 
@@ -85,7 +85,7 @@ locals {
   }
 
   function_app_settings = {
-    "DOCUMENT_PROCESSING_QUEUE_NAME" = azurerm_storage_queue.main.name
+    "DOCUMENT_PROCESSING_QUEUE_NAME"      = azurerm_storage_queue.main.name
     "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false"
   }
 }

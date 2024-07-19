@@ -33,6 +33,6 @@ provider "namep" {
 
   extra_tokens = {
     salt = var.salt
-    rnd = "NOT SET"
+    rnd  = "NOT SET"
   }
 }
