@@ -2,3 +2,4 @@
 .terraform.lock.hcl
 terraform.tfstate*
 data_azurite/*
+.DS_Store
