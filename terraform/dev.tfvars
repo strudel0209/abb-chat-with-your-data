@@ -1,11 +1,11 @@
 # example of secrets file
 secrets = [
   {
-    name = "db-password"
+    name  = "db-password"
     value = "Password"
   },
   {
-    name = "db-username"
+    name  = "db-username"
     value = "admin"
   }
 ]
