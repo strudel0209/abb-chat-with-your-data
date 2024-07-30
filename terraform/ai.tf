@@ -65,6 +65,7 @@ resource "azurerm_cognitive_account" "content_safety" {
   location            = "swedencentral"
   resource_group_name = azurerm_resource_group.main.name
   kind                = "ContentSafety"
+  custom_subdomain_name = data.namep_azure_name.content_safety.result
 
   sku_name = "S0"
 }
