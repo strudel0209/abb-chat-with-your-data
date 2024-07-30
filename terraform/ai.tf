@@ -104,7 +104,7 @@ resource "azurerm_role_assignment" "si_fa" {
 resource "azurerm_role_assignment" "si_webapp" {
   scope                = azurerm_search_service.main.id
   role_definition_name = "Search Index Data Contributor"
-  principal_id         = azurerm_linux_web_app.docker.identity[0].principal_id
+  principal_id         = azurerm_linux_web_app.fe.identity[0].principal_id
 }
 
 resource "azurerm_role_assignment" "si_openai" {
@@ -158,7 +158,7 @@ resource "azurerm_role_assignment" "cognative_services_user_fa" {
 resource "azurerm_role_assignment" "cognative_services_user_webapp" {
   scope                = azurerm_resource_group.main.id
   role_definition_name = "Cognitive Services User"
-  principal_id         = azurerm_linux_web_app.docker.identity[0].principal_id
+  principal_id         = azurerm_linux_web_app.fe.identity[0].principal_id
 }
 
 resource "azurerm_role_assignment" "cognitive_service_contrib_fa" {

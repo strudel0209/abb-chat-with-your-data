@@ -87,14 +87,14 @@ resource "azurerm_linux_web_app" "admin" {
   tags = local.app_insights_tags
 }
 
-data "namep_azure_name" "wa_docker" {
+data "namep_azure_name" "wa_frontend" {
   name     = "docker"
   location = var.location
   type     = "azurerm_app_service"
 }
 
-resource "azurerm_linux_web_app" "docker" {
-  name                = data.namep_azure_name.wa_docker.result
+resource "azurerm_linux_web_app" "fe" {
+  name                = data.namep_azure_name.wa_frontend.result
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_service_plan.main.location
   service_plan_id     = azurerm_service_plan.main.id

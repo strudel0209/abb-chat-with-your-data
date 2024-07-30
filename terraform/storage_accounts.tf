@@ -59,7 +59,7 @@ resource "azurerm_role_assignment" "sa_fa_queue_contrib" {
 resource "azurerm_role_assignment" "sa_web_fe_read" {
   scope                = azurerm_storage_account.main.id
   role_definition_name = "Storage Blob Data Reader"
-  principal_id         = azurerm_linux_web_app.docker.identity[0].principal_id
+  principal_id         = azurerm_linux_web_app.fe.identity[0].principal_id
 }
 
 resource "azurerm_role_assignment" "sa_form_recognizer_read" {
