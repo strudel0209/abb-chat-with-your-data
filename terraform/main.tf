@@ -21,7 +21,7 @@ provider "azurerm" {
 data "azurerm_client_config" "current" {}
 
 provider "namep" {
-  slice_string                 = "abbchat mvp"
+  slice_string                 = "abb cwyd"
   default_location             = var.location
   default_nodash_name_format   = "#{SLUG}#{TOKEN_1}#{TOKEN_2}#{SHORT_LOC}#{NAME}#{SALT}"
   default_resource_name_format = "#{SLUG}-#{TOKEN_1}-#{TOKEN_2}-#{SHORT_LOC}-#{NAME}#{-SALT}"
