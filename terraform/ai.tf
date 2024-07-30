@@ -107,6 +107,12 @@ resource "azurerm_role_assignment" "si_webapp" {
   principal_id         = azurerm_linux_web_app.docker.identity[0].principal_id
 }
 
+resource "azurerm_role_assignment" "si_openai" {
+  scope                = azurerm_search_service.main.id
+  role_definition_name = "Search Index Data Contributor"
+  principal_id         = azurerm_cognitive_account.openai.identity[0].principal_id
+}
+
 resource "azurerm_role_assignment" "si_user" {
   scope                = azurerm_search_service.main.id
   role_definition_name = "Search Index Data Contributor"
