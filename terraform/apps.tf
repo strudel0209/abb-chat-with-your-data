@@ -88,7 +88,7 @@ resource "azurerm_linux_web_app" "admin" {
 }
 
 data "namep_azure_name" "wa_frontend" {
-  name     = "docker"
+  name     = "frontend"
   location = var.location
   type     = "azurerm_app_service"
 }
