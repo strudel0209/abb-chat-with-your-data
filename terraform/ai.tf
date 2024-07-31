@@ -155,6 +155,13 @@ resource "azurerm_role_assignment" "cognative_services_user_fa" {
   principal_id         = azurerm_linux_function_app.main.identity[0].principal_id
 }
 
+# TODO: This seems like a bit extreme but it's not obvious what role should be used here?  Frontend will not work without it
+resource "azurerm_role_assignment" "contributor_fe" {
+  scope                = azurerm_search_service.main.id
+  role_definition_name = "Contributor"
+  principal_id         = azurerm_linux_web_app.fe.identity[0].principal_id
+}
+
 resource "azurerm_role_assignment" "cognative_services_user_webapp" {
   scope                = azurerm_resource_group.main.id
   role_definition_name = "Cognitive Services User"
