@@ -61,10 +61,10 @@ data "namep_azure_name" "content_safety" {
 }
 
 resource "azurerm_cognitive_account" "content_safety" {
-  name                = data.namep_azure_name.content_safety.result
-  location            = "swedencentral"
-  resource_group_name = azurerm_resource_group.main.name
-  kind                = "ContentSafety"
+  name                  = data.namep_azure_name.content_safety.result
+  location              = "swedencentral"
+  resource_group_name   = azurerm_resource_group.main.name
+  kind                  = "ContentSafety"
   custom_subdomain_name = data.namep_azure_name.content_safety.result
 
   sku_name = "S0"
@@ -88,6 +88,8 @@ resource "azurerm_search_service" "main" {
 
   local_authentication_enabled = false
 }
+
+# roles
 
 resource "azurerm_role_assignment" "si_admin" {
   scope                = azurerm_search_service.main.id
@@ -190,4 +192,45 @@ resource "azurerm_role_assignment" "cognitive_service_openai_contrib_fa" {
   scope                = azurerm_resource_group.main.id
   role_definition_name = "Cognitive Services OpenAI Contributor"
   principal_id         = azurerm_linux_function_app.main.identity[0].principal_id
+}
+
+# private endpoints
+
+module "cognative_services_pe" {
+  source = "./private-endpoint"
+
+  name                = "cog"
+  resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.main.location
+  vnet_id             = azurerm_virtual_network.main.id
+  subnet_id           = azurerm_subnet.pe.id
+  service_type        = "account"
+  resources = [
+    { name = "di", id = azurerm_cognitive_account.di.id },
+    { name = "content_safety", id = azurerm_cognitive_account.content_safety.id }
+  ]
+}
+
+module "openai_pe" {
+  source = "./private-endpoint"
+
+  name                = "openai"
+  resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.main.location
+  vnet_id             = azurerm_virtual_network.main.id
+  subnet_id           = azurerm_subnet.pe.id
+  service_type        = "openai"
+  resources = [ { name = "openai", id = azurerm_cognitive_account.openai.id } ]
+}
+
+module "search_pe" {
+  source = "./private-endpoint"
+
+  name                = "search"
+  resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.main.location
+  vnet_id             = azurerm_virtual_network.main.id
+  subnet_id           = azurerm_subnet.pe.id
+  service_type        = "search"
+  resources = [ { name = "search", id = azurerm_search_service.main.id } ]
 }

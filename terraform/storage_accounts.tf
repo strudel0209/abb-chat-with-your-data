@@ -38,6 +38,8 @@ resource "azurerm_storage_queue" "main" {
   storage_account_name = azurerm_storage_account.main.name
 }
 
+# roles
+
 resource "azurerm_role_assignment" "sa_admin_blob_contrib" {
   scope                = azurerm_storage_account.main.id
   role_definition_name = "Storage Blob Data Contributor"
@@ -66,4 +68,30 @@ resource "azurerm_role_assignment" "sa_form_recognizer_read" {
   scope                = azurerm_storage_account.main.id
   role_definition_name = "Storage Blob Data Reader"
   principal_id         = azurerm_cognitive_account.di.identity[0].principal_id
+}
+
+# private endpoints
+
+module "sa_blob" {
+  source = "./private-endpoint"
+
+  name                = "sa-blob"
+  resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.main.location
+  vnet_id             = azurerm_virtual_network.main.id
+  subnet_id           = azurerm_subnet.pe.id
+  service_type        = "blob"
+  resources           = [{ name = "sa-blob", id = azurerm_storage_account.main.id }]
+}
+
+module "sa_queue" {
+  source = "./private-endpoint"
+
+  name                = "sa-queue"
+  resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.main.location
+  vnet_id             = azurerm_virtual_network.main.id
+  subnet_id           = azurerm_subnet.pe.id
+  service_type        = "queue"
+  resources           = [{ name = "sa-queue", id = azurerm_storage_account.main.id }]
 }
