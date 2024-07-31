@@ -26,6 +26,7 @@ variable "openai_embedding_models" {
     }, {
     name    = "gpt-4"
     version = "turbo-2024-04-09"
+    capacity = 150
   }]
   type = list(object({
     name     = string
