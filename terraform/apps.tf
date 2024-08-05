@@ -30,6 +30,8 @@ resource "azurerm_linux_function_app" "main" {
   ftp_publish_basic_authentication_enabled       = false
   webdeploy_publish_basic_authentication_enabled = false
 
+  virtual_network_subnet_id = azurerm_subnet.web_apps.id
+
   site_config {
     application_stack {
       docker {
@@ -71,6 +73,8 @@ resource "azurerm_linux_web_app" "admin" {
   ftp_publish_basic_authentication_enabled       = false
   webdeploy_publish_basic_authentication_enabled = false
 
+  virtual_network_subnet_id = azurerm_subnet.web_apps.id
+
   site_config {
     application_stack {
       docker_image_name   = "rag-adminwebapp:latest"
@@ -101,6 +105,8 @@ resource "azurerm_linux_web_app" "fe" {
 
   ftp_publish_basic_authentication_enabled       = false
   webdeploy_publish_basic_authentication_enabled = false
+
+  virtual_network_subnet_id = azurerm_subnet.web_apps.id
 
   site_config {
     application_stack {
