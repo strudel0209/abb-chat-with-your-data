@@ -13,7 +13,7 @@ resource "azurerm_private_dns_zone_virtual_network_link" "main" {
 
 resource "azurerm_private_endpoint" "main" {
   for_each            = { for resource in var.resources : resource.name => resource }
-  name                = "${each.key}-endpoint"
+  name                = each.key
   location            = var.location
   resource_group_name = var.resource_group_name
   subnet_id           = var.subnet_id
