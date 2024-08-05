@@ -10,6 +10,7 @@ resource "azurerm_cognitive_account" "di" {
   resource_group_name   = azurerm_resource_group.main.name
   kind                  = "FormRecognizer"
   custom_subdomain_name = data.namep_azure_name.di.result
+  public_network_access_enabled = false
 
   sku_name = "S0"
 
@@ -30,6 +31,7 @@ resource "azurerm_cognitive_account" "openai" {
   resource_group_name   = azurerm_resource_group.main.name
   kind                  = "OpenAI"
   custom_subdomain_name = data.namep_azure_name.oai.result
+  public_network_access_enabled = false
 
   sku_name = "S0"
 
@@ -66,6 +68,7 @@ resource "azurerm_cognitive_account" "content_safety" {
   resource_group_name   = azurerm_resource_group.main.name
   kind                  = "ContentSafety"
   custom_subdomain_name = data.namep_azure_name.content_safety.result
+  public_network_access_enabled = false
 
   sku_name = "S0"
 }
@@ -81,6 +84,7 @@ resource "azurerm_search_service" "main" {
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
   sku                 = "standard"
+  public_network_access_enabled = false
 
   identity {
     type = "SystemAssigned"
