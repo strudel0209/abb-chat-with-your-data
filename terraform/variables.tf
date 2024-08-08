@@ -2,12 +2,25 @@ variable "salt" {
   description = "optional salt for use in the name"
   default     = ""
 }
-
+# location for deployment
 variable "location" {
   description = "default location to use if not specified"
   default     = "westeurope"
 }
 
+# Existing Virtual Network CIDR block
+variable "vnet_cidr" {
+  description = "CIDR block of the existing Virtual Network"
+  type        = string
+  default = "10.230.6.32/27"
+}
+
+# Existing Virtual Network Name
+variable "virtual_network_name" {
+  description = "Name of the existing Virtual Network"
+  type        = string
+  default = "WE-ACE-TST-Z1A-VNET34"
+}
 variable "secrets" {
   description = "list of secrets to add to the keyvault"
   default     = []
