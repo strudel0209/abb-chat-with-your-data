@@ -1,8 +1,9 @@
-# data "namep_azure_name" "vnet" {
-#   name     = "vnet"
-#   location = var.location
-#   type     = "azurerm_virtual_network"
-# }
+data "namep_azure_name" "vnet" {
+  # name     = "vnet"
+  name     = var.virtual_network_name
+  location = var.location
+  type     = "azurerm_virtual_network"
+}
 
 # resource "azurerm_virtual_network" "main" {
 #   name                = data.namep_azure_name.vnet.result
@@ -35,7 +36,8 @@ data "namep_azure_name" "snwa" {
 resource "azurerm_subnet" "web_apps" {
   name                 = data.namep_azure_name.snwa.result
   resource_group_name  = azurerm_resource_group.main.name
-  virtual_network_name = azurerm_virtual_network.main.name
+  # virtual_network_name = azurerm_virtual_network.main.name
+  virtual_network_name = var.virtual_network_name
   # address_prefixes     = ["10.0.1.0/24"]
   address_prefixes     = [cidrsubnet(var.vnet_cidr, 1, 1)]
 

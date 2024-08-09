@@ -206,7 +206,8 @@ module "cognative_services_pe" {
   name                = "cog"
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
-  vnet_id             = azurerm_virtual_network.main.id
+  # vnet_id             = azurerm_virtual_network.main.id
+  vnet_id             = data.azurerm_virtual_network.example.id
   subnet_id           = azurerm_subnet.pe.id
   service_type        = "account"
   resources = [
@@ -221,7 +222,8 @@ module "openai_pe" {
   name                = "openai"
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
-  vnet_id             = azurerm_virtual_network.main.id
+  # vnet_id             = azurerm_virtual_network.main.id
+  vnet_id             = data.azurerm_virtual_network.example.id
   subnet_id           = azurerm_subnet.pe.id
   service_type        = "openai"
   resources = [ { name = "openai", id = azurerm_cognitive_account.openai.id } ]
@@ -233,7 +235,8 @@ module "search_pe" {
   name                = "search"
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
-  vnet_id             = azurerm_virtual_network.main.id
+  # vnet_id             = azurerm_virtual_network.main.id
+  vnet_id             = data.azurerm_virtual_network.example.id
   subnet_id           = azurerm_subnet.pe.id
   service_type        = "search"
   resources = [ { name = "search", id = azurerm_search_service.main.id } ]
