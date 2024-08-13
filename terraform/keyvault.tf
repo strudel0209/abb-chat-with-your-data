@@ -1,48 +1,36 @@
-data "namep_azure_name" "kv" {
-  name     = "mvp"
-  location = var.location
-  type     = "azurerm_key_vault"
-}
+module "keyvault" {
+  source = "github.com/jason-johnson/tf-azure-keyvault?ref=v1.1.3"
 
-resource "azurerm_key_vault" "main" {
-  name                        = data.namep_azure_name.kv.result
-  location                    = azurerm_resource_group.main.location
-  resource_group_name         = azurerm_resource_group.main.name
-  enabled_for_disk_encryption = true
-  tenant_id                   = data.azurerm_client_config.current.tenant_id
-  soft_delete_retention_days  = 7
-  purge_protection_enabled    = false
-  enable_rbac_authorization   = true
+  name                = "mvp"
+  resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.main.location
+  sku_name            = "standard"
+  tenant_id           = data.azurerm_client_config.current.tenant_id
+  use_rbac            = true
+  managing_object_id  = data.azurerm_client_config.current.object_id
+  permissions = [
+    {
+      name                    = azurerm_linux_function_app.main.name
+      object_id               = azurerm_linux_function_app.main.identity[0].principal_id
+      key_permissions         = "read"
+      secret_permissions      = "read"
+      certificate_permissions = "read"
+    },
+    {
+      name                    = azurerm_linux_web_app.admin.name
+      object_id               = azurerm_linux_web_app.admin.identity[0].principal_id
+      key_permissions         = "read"
+      secret_permissions      = "read"
+      certificate_permissions = "read"
+    },
+    {
+      name                    = azurerm_linux_web_app.fe.name
+      object_id               = azurerm_linux_web_app.fe.identity[0].principal_id
+      key_permissions         = "read"
+      secret_permissions      = "read"
+      certificate_permissions = "read"
+    }
+  ]
 
-  sku_name = "standard"
-}
-
-resource "azurerm_role_assignment" "manager" {
-  scope                = azurerm_key_vault.main.id
-  role_definition_name = "Key Vault Administrator"
-  principal_id         = data.azurerm_client_config.current.object_id
-}
-
-resource "azurerm_role_assignment" "manager_roles" {
-  for_each = toset(["key_permissions", "secret_permissions", "certificate_permissions"])
-
-  scope                = azurerm_key_vault.main.id
-  role_definition_name = local.rbac_policy_map[each.key].manage
-  principal_id         = data.azurerm_client_config.current.object_id
-}
-
-/* resource "azurerm_role_assignment" "roles" {
-  for_each             = { for e in local.rbac_policy_permissions : "${e.object_id}-${e.permission}" => e }
-  scope                = azurerm_key_vault.main.id
-  role_definition_name = each.value.permission
-  principal_id         = each.value.object_id
-} */
-
-resource "azurerm_key_vault_secret" "main" {
-  for_each     = { for secret in var.secrets : secret.name => secret }
-  name         = each.value.name
-  value        = each.value.value
-  key_vault_id = azurerm_key_vault.main.id
-
-  depends_on = [azurerm_role_assignment.manager, azurerm_role_assignment.manager_roles["secret_permissions"]]
+  secrets = var.secrets
 }
