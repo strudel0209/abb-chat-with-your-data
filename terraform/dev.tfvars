@@ -9,3 +9,5 @@ secrets = [
     value = "admin"
   }
 ]
+
+vnet_name = "mvp-vnet"

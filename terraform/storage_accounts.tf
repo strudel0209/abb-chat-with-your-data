@@ -79,7 +79,7 @@ module "sa_blob" {
   name                = "sa-blob"
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
-  vnet_id             = azurerm_virtual_network.main.id
+  vnet_id             = local.vnet.id
   subnet_id           = azurerm_subnet.pe.id
   service_type        = "blob"
   resources           = [{ name = "sa-blob", id = azurerm_storage_account.main.id }]
@@ -91,7 +91,7 @@ module "sa_queue" {
   name                = "sa-queue"
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
-  vnet_id             = azurerm_virtual_network.main.id
+  vnet_id             = local.vnet.id
   subnet_id           = azurerm_subnet.pe.id
   service_type        = "queue"
   resources           = [{ name = "sa-queue", id = azurerm_storage_account.main.id }]

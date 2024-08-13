@@ -8,6 +8,11 @@ variable "location" {
   default     = "westeurope"
 }
 
+variable "vnet_name" {
+  description = "name of the virtual network"
+  default     = ""  
+}
+
 variable "secrets" {
   description = "list of secrets to add to the keyvault"
   default     = []
