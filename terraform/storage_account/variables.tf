@@ -15,7 +15,6 @@ variable "location" {
 
 variable "random_seed" {
   description = "The random seed to use for generating random resources"
-  #must be string
   type        = string
 }
 
