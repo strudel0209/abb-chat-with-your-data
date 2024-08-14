@@ -10,6 +10,7 @@ parameters:
 
 variables:
   - template: variables.yml
+  - group: Infra
   - name: saltVar
     ${{ if eq(parameters.salt, '-' ) }}:
       value: ''

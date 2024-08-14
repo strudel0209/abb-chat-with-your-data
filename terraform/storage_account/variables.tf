@@ -15,7 +15,8 @@ variable "location" {
 
 variable "random_seed" {
   description = "The random seed to use for generating random resources"
-  type        = number
+  #must be string
+  type        = string
 }
 
 variable "public_network_access_enabled" {
