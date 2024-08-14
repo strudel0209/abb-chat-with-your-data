@@ -2,9 +2,9 @@ trigger: none
 
 parameters:
   - name: salt
-    default: 'tst'
+    default: '-'
   - name: useWorkspace
-    default: true
+    default: false
     type: boolean
 
 variables:
