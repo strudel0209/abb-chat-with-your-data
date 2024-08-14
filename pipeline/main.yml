@@ -3,9 +3,9 @@ trigger:
 
 parameters:
   - name: salt
-    default: 'tst'
+    default: 'not used'
   - name: useWorkspace
-    default: true
+    default: false
     type: boolean
 
 variables:
@@ -33,21 +33,4 @@ jobs:
           useWorkspace: ${{ parameters.useWorkspace }}
           resourceGroupName: $(terraformResourceGroupName)
           env:
-            TF_VAR_branch: $(saltVar)
-  - job: deploy
-    dependsOn: terraform
-    variables:
-      acrName: $[ dependencies.terraform.outputs['Terraform.acr_name'] ]
-      acrUrl: $[ dependencies.terraform.outputs['Terraform.acr_url'] ]
-    steps:
-      - task: AzureCLI@2
-        displayName: Azure CLI
-        inputs:
-          workingDirectory: demo/message-sender
-          azureSubscription: $(servicePrinciple)
-          scriptType: bash
-          scriptLocation: inlineScript
-          inlineScript: |
-            az acr login -n $(acrName)
-            docker build . -t $(acrUrl)/message-func:latest -t $(acrUrl)/message-func:$(Build.BuildNumber)
-            docker push $(acrUrl)/message-func --all-tags 
+            TF_VAR_salt: $(saltVar)
