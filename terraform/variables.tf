@@ -13,6 +13,11 @@ variable "vnet_name" {
   default     = ""  
 }
 
+variable "storage_account_public_access_enabled" {
+  description = "Whether the storage account should have public network access enabled"
+  default     = true
+}
+
 variable "secrets" {
   description = "list of secrets to add to the keyvault"
   default     = []

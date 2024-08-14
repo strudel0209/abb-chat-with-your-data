@@ -1,10 +1,10 @@
 locals {
-  vnet = try(azurerm_virtual_network.main[0], data.azurerm_virtual_network.main[0])
+  vnet = try(one(azurerm_virtual_network.main), one(data.azurerm_virtual_network.main))
 
   common_app_settings = {
     "AZURE_AUTH_TYPE"                = "rbac"
-    "AZURE_BLOB_ACCOUNT_NAME"        = azurerm_storage_account.main.name
-    "AZURE_BLOB_CONTAINER_NAME"      = azurerm_storage_container.documents.name
+    "AZURE_BLOB_ACCOUNT_NAME"        = module.storage_account.name
+    "AZURE_BLOB_CONTAINER_NAME"      = module.storage_account.containers["documents"].name
     "AZURE_CONTENT_SAFETY_ENDPOINT"  = azurerm_cognitive_account.content_safety.endpoint
     "AZURE_FORM_RECOGNIZER_ENDPOINT" = azurerm_cognitive_account.di.endpoint
     "AZURE_OPENAI_MODEL"             = azurerm_cognitive_deployment.main["gpt-4"].name
@@ -69,7 +69,7 @@ locals {
   }
 
   function_app_settings = {
-    "DOCUMENT_PROCESSING_QUEUE_NAME"      = azurerm_storage_queue.main.name
+    "DOCUMENT_PROCESSING_QUEUE_NAME"      = module.storage_account.queues["doc-processing"].name
     "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false"
   }
 }

@@ -2,7 +2,7 @@ resource "azurerm_eventgrid_system_topic" "main" {
   name                   = "doc-processing"
   resource_group_name    = azurerm_resource_group.main.name
   location               = azurerm_resource_group.main.location
-  source_arm_resource_id = azurerm_storage_account.main.id
+  source_arm_resource_id = module.storage_account.id
   topic_type             = "Microsoft.Storage.StorageAccounts"
 }
 
@@ -15,13 +15,13 @@ resource "azurerm_eventgrid_system_topic_event_subscription" "main" {
   advanced_filtering_on_arrays_enabled = true
 
   storage_queue_endpoint {
-    storage_account_id                    = azurerm_storage_account.main.id
-    queue_name                            = azurerm_storage_queue.main.name
+    storage_account_id                    = module.storage_account.id
+    queue_name                            = module.storage_account.queues["doc-processing"].name
     queue_message_time_to_live_in_seconds = -1
   }
 
   subject_filter {
-    subject_begins_with = "/blobServices/default/containers/${azurerm_storage_container.documents.name}/blobs/"
+    subject_begins_with = "/blobServices/default/containers/${module.storage_account.containers["documents"].name}/blobs/"
   }
 
   retry_policy {

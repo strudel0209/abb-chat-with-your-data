@@ -23,8 +23,8 @@ resource "azurerm_linux_function_app" "main" {
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
 
-  storage_account_name       = azurerm_storage_account.main.name
-  storage_account_access_key = azurerm_storage_account.main.primary_access_key
+  storage_account_name       = module.storage_account.name
+  storage_account_access_key = module.storage_account.primary_access_key
   service_plan_id            = azurerm_service_plan.main.id
 
   ftp_publish_basic_authentication_enabled       = false
